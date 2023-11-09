@@ -9,6 +9,10 @@ extension Date {
         _TypedDateContext(date: self, calendar: calendar)[keyPath: keyPath]!
     }
 
+    public func typedDate(calendar: Calendar = .current) -> TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)> {
+        scope(to: \.nanosecond, calendar: calendar)
+    }
+
     func scope<T>(
         to keyPath: KeyPath<_TypedDateContext, TypedDate<T>?>,
         calendar: Calendar = .current

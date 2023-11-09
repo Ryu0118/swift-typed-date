@@ -10,7 +10,16 @@ package let allUnitNames = [
     Nanosecond.typeName
 ]
 
-public protocol TypedDateUnit {}
+public protocol TypedDateUnit {
+    var value: Int { get }
+    init(_: Int)
+}
+
+public extension TypedDateUnit {
+    func add(_ value: Int) -> Self {
+        Self(self.value + value)
+    }
+}
 
 package extension TypedDateUnit {
     static var typeName: String {
