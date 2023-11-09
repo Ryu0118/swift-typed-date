@@ -1,2 +1,2 @@
-# swift-composable-date
+# swift-typed-date
 Library for handling partial date structures with seamless Date conversions, flexible date component management.

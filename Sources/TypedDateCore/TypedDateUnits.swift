@@ -1,6 +1,21 @@
 import Foundation
 
-public protocol TypedDateUnit {
+package let allUnitNames = [
+    Year.typeName,
+    Month.typeName,
+    Day.typeName,
+    Hour.typeName,
+    Minute.typeName,
+    Second.typeName,
+    Nanosecond.typeName
+]
+
+public protocol TypedDateUnit {}
+
+package extension TypedDateUnit {
+    static var typeName: String {
+        String(String(describing: Self.self))
+    }
 }
 
 public struct Year: TypedDateUnit {
@@ -59,7 +74,7 @@ public struct Nanosecond: TypedDateUnit {
     }
 }
 
-public struct FractionalSecond: TypedDateUnit {
+public struct FractionalSecond {
     public let value: Double
 
     public var seconds: Int {

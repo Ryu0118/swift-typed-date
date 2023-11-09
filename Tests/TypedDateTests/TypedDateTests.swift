@@ -1,5 +1,6 @@
 import Testing
 @testable import TypedDate
+import TypedDateCore
 import Foundation
 
 @Suite

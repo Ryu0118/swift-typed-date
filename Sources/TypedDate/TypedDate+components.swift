@@ -1,6 +1,5 @@
 import Foundation
 
-
 public extension TypedDate<Year> {
     func year(calendar: Calendar = .current) -> Int {
         calendar.dateComponents([.year], from: date).year ?? components.value

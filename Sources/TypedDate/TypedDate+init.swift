@@ -145,61 +145,61 @@ extension TypedDate {
         self.components = components
 
         switch components {
-        case let TypedDate as TypedDate<Year>:
+        case let components as Year:
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.value
+                year: components.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month)>:
+        case let components as (Year, Month):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value
+                year: components.0.value,
+                month: components.1.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month, Day)>:
+        case let components as (Year, Month, Day):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value,
-                day: TypedDate.components.2.value
+                year: components.0.value,
+                month: components.1.value,
+                day: components.2.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month, Day, Hour)>:
+        case let components as (Year, Month, Day, Hour):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value,
-                day: TypedDate.components.2.value,
-                hour: TypedDate.components.3.value
+                year: components.0.value,
+                month: components.1.value,
+                day: components.2.value,
+                hour: components.3.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month, Day, Hour, Minute)>:
+        case let components as (Year, Month, Day, Hour, Minute):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value,
-                day: TypedDate.components.2.value,
-                hour: TypedDate.components.3.value,
-                minute: TypedDate.components.4.value
+                year: components.0.value,
+                month: components.1.value,
+                day: components.2.value,
+                hour: components.3.value,
+                minute: components.4.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month, Day, Hour, Minute, Second)>:
+        case let components as (Year, Month, Day, Hour, Minute, Second):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value,
-                day: TypedDate.components.2.value,
-                hour: TypedDate.components.3.value,
-                minute: TypedDate.components.4.value,
-                second: TypedDate.components.5.value
+                year: components.0.value,
+                month: components.1.value,
+                day: components.2.value,
+                hour: components.3.value,
+                minute: components.4.value,
+                second: components.5.value
             ).date!
-        case let TypedDate as TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)>:
+        case let components as (Year, Month, Day, Hour, Minute, Second, Nanosecond):
             self.date = DateComponents(
                 calendar: calendar,
-                year: TypedDate.components.0.value,
-                month: TypedDate.components.1.value,
-                day: TypedDate.components.2.value,
-                hour: TypedDate.components.3.value,
-                minute: TypedDate.components.4.value,
-                second: TypedDate.components.5.value,
-                nanosecond: TypedDate.components.6.value
+                year: components.0.value,
+                month: components.1.value,
+                day: components.2.value,
+                hour: components.3.value,
+                minute: components.4.value,
+                second: components.5.value,
+                nanosecond: components.6.value
             ).date!
 
         default:

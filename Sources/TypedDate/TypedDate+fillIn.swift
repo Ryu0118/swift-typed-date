@@ -1,19 +1,19 @@
 import Foundation
 
-@EraseContext
+@FillInContext
+public extension TypedDate<Year> {}
+
+@FillInContext
 public extension TypedDate<(Year, Month)> {}
 
-@EraseContext
+@FillInContext
 public extension TypedDate<(Year, Month, Day)> {}
 
-@EraseContext
+@FillInContext
 public extension TypedDate<(Year, Month, Day, Hour)> {}
 
-@EraseContext
+@FillInContext
 public extension TypedDate<(Year, Month, Day, Hour, Minute)> {}
 
-@EraseContext
+@FillInContext
 public extension TypedDate<(Year, Month, Day, Hour, Minute, Second)> {}
-
-@EraseContext
-public extension TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)> {}

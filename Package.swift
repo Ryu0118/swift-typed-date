@@ -18,16 +18,13 @@ let package = Package(
         .library(
             name: "TypedDate",
             targets: ["TypedDate"]
-        ),
-        .executable(
-            name: "TypedDateClient",
-            targets: ["TypedDateClient"]
-        ),
+        )
     ],
     dependencies: [
         // Depend on the Swift 5.9 release of SwiftSyntax
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0"),
-        .package(url: "https://github.com/apple/swift-testing.git", from: "0.1.0")
+        .package(url: "https://github.com/apple/swift-syntax.git", "508.0.0"..<"510.0.0"),
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.1.0"),
+        .package(url: "https://github.com/pointfreeco/swift-macro-testing", from: "0.2.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -36,25 +33,42 @@ let package = Package(
         .macro(
             name: "TypedDateMacros",
             dependencies: [
+                "TypedDateCore",
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
             ]
         ),
 
         // Library that exposes a macro as part of its API, which is used in client programs.
-        .target(name: "TypedDate", dependencies: ["TypedDateMacros"]),
+        .target(
+            name: "TypedDate",
+            dependencies: [
+                "TypedDateCore",
+                "TypedDateMacros"
+            ]
+        ),
+        .target(
+            name: "TypedDateCore",
+            dependencies: [
+            ]
+        ),
 
-        // A client of the library, which is able to use the macro in its own code.
-        .executableTarget(name: "TypedDateClient", dependencies: ["TypedDate"]),
-
-        // A test target used to develop the macro implementation.
+        .testTarget(
+            name: "TypedDateMacrosTests",
+            dependencies: [
+                "TypedDateMacros",
+                "TypedDateCore",
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+                .product(name: "MacroTesting", package: "swift-macro-testing")
+            ]
+        ),
         .testTarget(
             name: "TypedDateTests",
             dependencies: [
                 "TypedDate",
-                .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-                .product(name: "Testing", package: "swift-testing")
+                .product(name: "Testing", package: "swift-testing"),
             ]
-        ),
+        )
     ]
 )
