@@ -29,8 +29,6 @@ package struct ModifyContextMacro: MemberMacro {
 
         return [
             try generateModifyContext(of: baseComponents).cast(DeclSyntax.self),
-            try generateModifyingFunc(of: baseComponents).cast(DeclSyntax.self),
-            try generateModifyFunc(of: baseComponents).cast(DeclSyntax.self),
         ]
     }
 
@@ -85,36 +83,5 @@ package struct ModifyContextMacro: MemberMacro {
             )
         }
         return codeBlock.joined(separator: "\n")
-    }
-
-    private static func generateModifyingFunc(of baseComponents: [String]) throws -> FunctionDeclSyntax {
-        try FunctionDeclSyntax(
-            """
-             func modifying<T>(
-                 _ keyPath: KeyPath<_\(raw: baseComponents.last ?? "_")ModifyContext, (T, (T) -> Components)>,
-                 modify: (inout T) -> Void,
-                 calendar: Calendar = .current
-             ) -> TypedDate<Components> {
-                 let context = _\(raw: baseComponents.last ?? "_")ModifyContext(base: components)
-                 var (target, transform) = context[keyPath: keyPath]
-                 modify(&target)
-                 return .init(components: transform(target), calendar: calendar)
-             }
-            """
-        )
-    }
-
-    private static func generateModifyFunc(of baseComponents: [String]) throws -> FunctionDeclSyntax {
-        try FunctionDeclSyntax(
-            """
-            mutating func modify<T>(
-                _ keyPath: KeyPath<_\(raw: baseComponents.last ?? "_")ModifyContext, (T, (T) -> Components)>,
-                modify: (inout T) -> Void,
-                calendar: Calendar = .current
-            ) {
-                self = modifying(keyPath, modify: modify, calendar: calendar)
-            }
-            """
-        )
     }
 }

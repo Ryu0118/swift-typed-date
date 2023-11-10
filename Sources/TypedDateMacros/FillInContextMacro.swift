@@ -29,7 +29,6 @@ package struct FillInContextMacro: MemberMacro {
 
         return [
             try generateFillContext(of: baseComponents).cast(DeclSyntax.self),
-            try generateFillFunc(of: baseComponents).cast(DeclSyntax.self)
         ]
     }
 
@@ -84,30 +83,8 @@ package struct FillInContextMacro: MemberMacro {
 
         let passedArguments: String = diff == 1 ? "data" : (0..<diff).map { "data.\($0)" }.joined(separator: ", ")
         return """
-        \(convertComponents.last!.lowercased()) = (
-            TypedDate<(\(convertComponents.joined(separator: ", ")))>.self,
-            { data in (\(bases), \(passedArguments)) }
-        )
+        \(convertComponents.last!.lowercased()) = { data in (\(bases), \(passedArguments)) }
         """
-    }
-
-    private static func generateFillFunc(
-        of baseComponents: [String]
-    ) throws -> FunctionDeclSyntax {
-        let typeName = "_\(baseComponents.last ?? "")FillInContext"
-        return try FunctionDeclSyntax(
-            """
-             func fill<T, U>(
-                 to keyPath: KeyPath<\(raw: typeName), (TypedDate<T>.Type, (U) -> T)>,
-                 arguments: U,
-                 calendar: Calendar = .current
-             ) -> TypedDate<T> {
-                 let context = \(raw: typeName)(base: components)
-                 let (_, transform) = context[keyPath: keyPath]
-                 return .init(transform(arguments), calendar: calendar)
-             }
-            """
-        )
     }
 
     private static func generateUnitProperty(
@@ -120,10 +97,7 @@ package struct FillInContextMacro: MemberMacro {
         }
         return try VariableDeclSyntax(
             """
-            public let \(raw: convertComponents.last!.lowercased()): (
-                TypedDate<(\(raw: convertComponents.joined(separator: ", ")))>.Type,
-                \(raw: types.closureParameter) -> \(raw: convertComponents.returnType)
-            )
+            public let \(raw: convertComponents.last!.lowercased()): \(raw: types.closureParameter) -> \(raw: convertComponents.returnType)
             """
         )
     }

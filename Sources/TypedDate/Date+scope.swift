@@ -159,3 +159,10 @@ extension TypedDate {
         self.components = (Year(year), Month(month), Day(day), Hour(hour), Minute(minute), Second(second), Nanosecond(nanosecond))
     }
 }
+
+//struct Hoge {
+//    init() {
+//        let hoge = TypedDate(Year(2022), Month(1))
+//        hoge.erase(to: <#T##KeyPath<TypedDate<(Year, Month)>._MonthEraseContext, (TypedDate<Sendable>.Type, Sendable)>#>)
+//    }
+//}

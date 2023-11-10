@@ -28,9 +28,8 @@ package struct EraseContextMacro: MemberMacro {
         }
 
         return [
-            try generateEraseContext(of: baseComponents).as(DeclSyntax.self),
-            try generateEraseFunc(of: baseComponents).as(DeclSyntax.self)
-        ].compactMap { $0 }
+            try generateEraseContext(of: baseComponents).cast(DeclSyntax.self),
+        ]
     }
 
     private static func generateEraseContext(of baseComponents: [String]) throws -> StructDeclSyntax {
@@ -69,20 +68,5 @@ package struct EraseContextMacro: MemberMacro {
             .map { i, _ in "base.\(i)" }
             .returnType
         return "\(erasedComponents.last!.lowercased()) = (TypedDate<\(type)>.self, \(arguments))"
-    }
-
-    private static func generateEraseFunc(of baseComponents: [String]) throws -> FunctionDeclSyntax {
-        let typeName = "_\(baseComponents.last ?? "")EraseContext"
-        return try FunctionDeclSyntax(
-            """
-             func erase<T>(
-                 to keyPath: KeyPath<\(raw: typeName), (TypedDate<T>.Type, T)>,
-                 calendar: Calendar = .current
-             ) -> TypedDate<T> {
-                 let context = \(raw: typeName)(base: components)[keyPath: keyPath]
-                 return context.0.init(context.1, calendar: calendar)
-             }
-            """
-        )
     }
 }
