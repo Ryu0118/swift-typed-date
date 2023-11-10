@@ -10,17 +10,6 @@ package let allUnitNames = [
     Nanosecond.typeName
 ]
 
-public protocol TypedDateUnit {
-    var value: Int { get }
-    init(_: Int)
-}
-
-public extension TypedDateUnit {
-    func add(_ value: Int) -> Self {
-        Self(self.value + value)
-    }
-}
-
 package extension TypedDateUnit {
     static var typeName: String {
         String(String(describing: Self.self))
@@ -36,6 +25,7 @@ public struct Year: TypedDateUnit {
 }
 
 public struct Month: TypedDateUnit {
+
     public let value: Int
 
     public init(_ month: Int) {
@@ -90,7 +80,7 @@ public struct FractionalSecond {
         Int(value)
     }
     public var nanoseconds: Int {
-        Int((value - Double(seconds)) * 1_000_000_000)
+        Int((value - floor(value)) * 1_000_000_000)
     }
 
     public init(_ value: Double) {

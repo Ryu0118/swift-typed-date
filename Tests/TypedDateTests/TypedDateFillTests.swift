@@ -14,7 +14,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInYearDate() {
-        let typedDate = TypedDate(testSupport.year)
+        let typedDate = testSupport.generateTypedYearDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.month,
@@ -55,7 +55,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInMonthDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month)
+        let typedDate = testSupport.generateTypedMonthDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.day,
@@ -90,7 +90,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInDayDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day)
+        let typedDate = testSupport.generateTypedDayDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.hour,
@@ -119,7 +119,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInHourDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour)
+        let typedDate = testSupport.generateTypedHourDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.minute,
@@ -142,7 +142,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInMinuteDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute)
+        let typedDate = testSupport.generateTypedMinuteDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.second,
@@ -159,7 +159,7 @@ struct TypedDateFillTests {
 
     @Test
     func testFillInSecondDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second)
+        let typedDate = testSupport.generateTypedSecondDate()
         testSupport.assertTypedDate(
             for: typedDate.fill(
                 to: \.nanosecond,

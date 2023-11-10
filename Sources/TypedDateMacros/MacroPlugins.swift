@@ -6,6 +6,7 @@ import SwiftSyntaxMacros
 struct TypedDatePlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         FillInContextMacro.self,
-        EraseContextMacro.self
+        EraseContextMacro.self,
+        ModifyContextMacro.self
     ]
 }

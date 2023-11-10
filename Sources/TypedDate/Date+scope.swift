@@ -39,7 +39,7 @@ public final class _TypedDateContext {
     }
 }
 
-fileprivate extension TypedDate {
+extension TypedDate {
     init?(
         date: Date,
         calendar: Calendar

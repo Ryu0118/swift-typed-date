@@ -14,14 +14,14 @@ struct TypedDateEraseTests {
 
     @Test
     func testMonthErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, calendar: calendar)
+        let typedDate = testSupport.generateTypedMonthDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
     }
 
     @Test
     func testDayErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, calendar: calendar)
+        let typedDate = testSupport.generateTypedDayDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
         testSupport.assertTypedDate(for: typedDate.erase(to: \.month, calendar: calendar))
@@ -29,7 +29,7 @@ struct TypedDateEraseTests {
 
     @Test
     func testHourErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, calendar: calendar)
+        let typedDate = testSupport.generateTypedHourDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
         testSupport.assertTypedDate(for: typedDate.erase(to: \.month, calendar: calendar))
@@ -38,7 +38,7 @@ struct TypedDateEraseTests {
 
     @Test
     func testMinuteErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, calendar: calendar)
+        let typedDate = testSupport.generateTypedMinuteDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
         testSupport.assertTypedDate(for: typedDate.erase(to: \.month, calendar: calendar))
@@ -48,7 +48,7 @@ struct TypedDateEraseTests {
 
     @Test
     func testSecondErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second, calendar: calendar)
+        let typedDate = testSupport.generateTypedNanosecondDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
         testSupport.assertTypedDate(for: typedDate.erase(to: \.month, calendar: calendar))
@@ -59,7 +59,7 @@ struct TypedDateEraseTests {
 
     @Test
     func testNanoSecondErasedDate() {
-        let typedDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second, testSupport.nanosecond, calendar: calendar)
+        let typedDate = testSupport.generateTypedNanosecondDate()
         testSupport.assertTypedDate(for: typedDate)
         testSupport.assertTypedDate(for: typedDate.erase(to: \.year, calendar: calendar))
         testSupport.assertTypedDate(for: typedDate.erase(to: \.month, calendar: calendar))

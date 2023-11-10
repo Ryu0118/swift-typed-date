@@ -14,56 +14,56 @@ struct TypedDateEquatableTests {
 
     @Test
     func equalYear() {
-        let lhsDate = TypedDate(testSupport.year)
-        let rhsDate = TypedDate(testSupport.year)
+        let lhsDate = testSupport.generateTypedYearDate()
+        let rhsDate = testSupport.generateTypedYearDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalMonth() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month)
+        let lhsDate = testSupport.generateTypedMonthDate()
+        let rhsDate = testSupport.generateTypedMonthDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalDay() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day)
+        let lhsDate = testSupport.generateTypedDayDate()
+        let rhsDate = testSupport.generateTypedDayDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalHour() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour)
+        let lhsDate = testSupport.generateTypedHourDate()
+        let rhsDate = testSupport.generateTypedHourDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalMinute() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute)
+        let lhsDate = testSupport.generateTypedMinuteDate()
+        let rhsDate = testSupport.generateTypedMinuteDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalSecond() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second)
+        let lhsDate = testSupport.generateTypedSecondDate()
+        let rhsDate = testSupport.generateTypedSecondDate()
 
         #expect(lhsDate == rhsDate)
     }
 
     @Test
     func equalNanosecond() {
-        let lhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second, testSupport.nanosecond)
-        let rhsDate = TypedDate(testSupport.year, testSupport.month, testSupport.day, testSupport.hour, testSupport.minute, testSupport.second, testSupport.nanosecond)
+        let lhsDate = testSupport.generateTypedNanosecondDate()
+        let rhsDate = testSupport.generateTypedNanosecondDate()
 
         #expect(lhsDate == rhsDate)
     }

@@ -141,6 +141,9 @@ public extension TypedDate {
 }
 
 extension TypedDate {
+    init(components: Components, calendar: Calendar = .current) {
+        self.init(components, calendar: calendar)
+    }
     init(_ components: Components, calendar: Calendar = .current) {
         self.components = components
 
