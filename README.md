@@ -56,7 +56,7 @@ typedDate.fill(
 typedDate.fill(
     to: \.hour,
     arguments: (Hour(11)),
-    calendar: Calendar(identifier: .gregorian
+    calendar: Calendar(identifier: .gregorian)
 )
 // TypedDate<(Year, Month, Day, Hour)>
 ```
