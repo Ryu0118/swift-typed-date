@@ -1,5 +1,5 @@
 # TypedDate
-TypedDate is a type-safe wrapper for Swift's Date object, enhancing flexibility in date handling. It enables custom date structures, from single components like year to more complex combinations of year, month, and day, meeting specific developmental needs.
+TypedDate is a wrapper for Swift's Date object that enhances date handling at the type level. It enables the construction of custom date structures, ranging from single components like year to more elaborate combinations including year, month, and day, tailored to specific development requirements.
 
 Key features of TypedDate include:
 
