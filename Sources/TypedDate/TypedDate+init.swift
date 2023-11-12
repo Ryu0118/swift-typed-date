@@ -1,6 +1,12 @@
 import Foundation
 
+/// `TypedDate` is a structure for handling dates in a type-safe manner.
 public extension TypedDate {
+    /// Initializes a `TypedDate` by specifying the year.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year component.
     init(_ year: Year, calendar: Calendar = .current) where Components == Year {
         self.components = year
         self.date = DateComponents(
@@ -9,6 +15,12 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year and month.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year and month components.
     init(
         _ year: Year,
         _ month: Month,
@@ -22,6 +34,13 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, and day.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, and day components.
     init(
         _ year: Year,
         _ month: Month,
@@ -37,6 +56,14 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, day, and hour.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - hour: The hour component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, day, and hour components.
     init(
         _ year: Year,
         _ month: Month,
@@ -54,6 +81,15 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, day, hour, and minute.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - hour: The hour component of the date.
+    ///   - minute: The minute component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, day, hour, and minute components.
     init(
         _ year: Year,
         _ month: Month,
@@ -73,6 +109,16 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, day, hour, minute, and second.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - hour: The hour component of the date.
+    ///   - minute: The minute component of the date.
+    ///   - second: The second component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, day, hour, minute, and second components.
     init(
         _ year: Year,
         _ month: Month,
@@ -94,6 +140,17 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, day, hour, minute, second, and nanosecond.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - hour: The hour component of the date.
+    ///   - minute: The minute component of the date.
+    ///   - second: The second component of the date.
+    ///   - nanosecond: The nanosecond component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, day, hour, minute, second, and nanosecond components.
     init(
         _ year: Year,
         _ month: Month,
@@ -117,6 +174,16 @@ public extension TypedDate {
         ).date!
     }
 
+    /// Initializes a `TypedDate` by specifying the year, month, day, hour, minute, and fractional second.
+    /// - Parameters:
+    ///   - year: The year component of the date.
+    ///   - month: The month component of the date.
+    ///   - day: The day component of the date.
+    ///   - hour: The hour component of the date.
+    ///   - minute: The minute component of the date.
+    ///   - fractionalSecond: The fractional second component of the date.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of `TypedDate` with the year, month, day, hour, minute, and fractional second components.
     init(
         _ year: Year,
         _ month: Month,

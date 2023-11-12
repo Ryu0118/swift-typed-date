@@ -2,6 +2,13 @@ import Foundation
 
 @FillInContext
 public extension TypedDate<Year> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_YearFillInContext,(U) -> T>,
         arguments: U,
@@ -15,6 +22,13 @@ public extension TypedDate<Year> {
 
 @FillInContext
 public extension TypedDate<(Year, Month)> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_MonthFillInContext,(U) -> T>,
         arguments: U,
@@ -28,6 +42,13 @@ public extension TypedDate<(Year, Month)> {
 
 @FillInContext
 public extension TypedDate<(Year, Month, Day)> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_DayFillInContext, (U) -> T>,
         arguments: U,
@@ -41,6 +62,13 @@ public extension TypedDate<(Year, Month, Day)> {
 
 @FillInContext
 public extension TypedDate<(Year, Month, Day, Hour)> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_HourFillInContext, (U) -> T>,
         arguments: U,
@@ -54,6 +82,13 @@ public extension TypedDate<(Year, Month, Day, Hour)> {
 
 @FillInContext
 public extension TypedDate<(Year, Month, Day, Hour, Minute)> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_MinuteFillInContext, (U) -> T>,
         arguments: U,
@@ -67,6 +102,13 @@ public extension TypedDate<(Year, Month, Day, Hour, Minute)> {
 
 @FillInContext
 public extension TypedDate<(Year, Month, Day, Hour, Minute, Second)> {
+    /// Fill in missing Date components
+    ///
+    /// - Parameters:
+    ///   - to: KeyPath for specifying components of a Date.
+    ///   - arguments: Tuple of Components of Date to be filled.
+    ///   - calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Instance of TypedDate with more Date Components.
     func fill<T, U>(
         to keyPath: KeyPath<_SecondFillInContext, (U) -> T>,
         arguments: U,

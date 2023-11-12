@@ -1,18 +1,21 @@
 import Foundation
 
 extension Date {
-    @_disfavoredOverload // To test the one with a return value of TypedDate<T>?
+    /// Returns a `TypedDate<T>` representing the specified date components.
+    ///
+    /// - Parameters:
+    ///   - keyPath: A key path to the specific date component.
+    ///   - calendar: The calendar used for date calculations. Defaults to the current calendar.
+    /// - Returns: A `TypedDate<T>` representing the specified date components.
+    @_disfavoredOverload
     public func scope<T>(
         to keyPath: KeyPath<_TypedDateContext, TypedDate<T>?>,
         calendar: Calendar = .current
     ) -> TypedDate<T> {
-        _TypedDateContext(date: self, calendar: calendar)[keyPath: keyPath]!
+        scope(to: keyPath, calendar: calendar)!
     }
 
-    public func typedDate(calendar: Calendar = .current) -> TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)> {
-        scope(to: \.nanosecond, calendar: calendar)
-    }
-
+    // To test that this method does not become nil, a @_disfavoredOverload attribute is given to the public method.
     func scope<T>(
         to keyPath: KeyPath<_TypedDateContext, TypedDate<T>?>,
         calendar: Calendar = .current
@@ -159,10 +162,3 @@ extension TypedDate {
         self.components = (Year(year), Month(month), Day(day), Hour(hour), Minute(minute), Second(second), Nanosecond(nanosecond))
     }
 }
-
-//struct Hoge {
-//    init() {
-//        let hoge = TypedDate(Year(2022), Month(1))
-//        hoge.erase(to: <#T##KeyPath<TypedDate<(Year, Month)>._MonthEraseContext, (TypedDate<Sendable>.Type, Sendable)>#>)
-//    }
-//}
