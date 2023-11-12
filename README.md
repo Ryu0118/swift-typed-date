@@ -29,6 +29,17 @@ This will create a TypedDate instance representing the date 2023/11/12.
 ```Swift
 let typedDate = TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12), Second(1), Nanosecond(10000000))
 ```
+or use the `Date.scope(to:calendar:)` method to convert from `Date` to `TypedDate`
+```Swift
+let typedDate1: TypedDate<(Year, Month)> = Date().scope(to: \.month)
+let typedDate2: TypedDate<(Year, Month, Day, Hour)> = Date().scope(to: \.hour)
+```
+
+### TypedDate to Date conversion
+To convert from TypedDate to Date, use date property.
+```Swift
+typedDate.date // Date
+```
 
 ### Fill
 The fill method allows you to fill in a specific part of a date. For example:
@@ -61,19 +72,6 @@ let modifiedDate = date.modifying(\.year) { $0 += 1 }
             .modifying(\.hour) { $0 += 4 }
             .modifying(\.minute) { $0 += 5 }
 // modifiedDate: 2024/09/15 15:17
-```
-
-### Date to TypedDate conversion
-To convert from Date to TypedDate, use the `Date.scope(to:calendar:)` method. For example:
-```Swift
-let typedDate1: TypedDate<(Year, Month)> = Date().scope(to: \.month)
-let typedDate2: TypedDate<(Year, Month, Day, Hour)> = Date().scope(to: \.hour)
-```
-
-### TypedDate to Date conversion
-To convert from TypedDate to Date, use date property.
-```Swift
-typedDate.date // Date
 ```
 
 ### Conformance to Standard Protocols
