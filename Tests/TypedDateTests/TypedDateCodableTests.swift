@@ -34,4 +34,19 @@ struct TypedDateCodableTests {
         let decoded8 = try JSONDecoder().decode(TypedDate<(Year)>.self, from: data)
         testSupport.assertTypedDate(for: decoded8)
     }
+
+    @Test
+    func testAnotherModelCodable() throws {
+        struct Model: Codable, Equatable {
+            let id: Int
+            let name: String
+            let date: TypedDate<(Year, Month, Day)>
+        }
+        let typedDate = TypedDate(Year(2023), Month(11), Day(10))
+        let model = Model(id: 1, name: "John", date: typedDate)
+
+        let data = try JSONEncoder().encode(model)
+        let decodedModel = try JSONDecoder().decode(Model.self, from: data)
+        #expect(model == decodedModel)
+    }
 }
