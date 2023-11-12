@@ -11,11 +11,11 @@ TypedDate addresses these issues by treating each part of a date as a separate, 
 Here are some benefits of using TypedDate:
 
 * **Type Safety**
-<br> Each part of a date is a separate entity, preventing accidental assignment of one part to another.
+<br> TypedDate can specify the required Date components at the type level
 * **Clarity**
-<br> It’s clear what each date represents, even if it’s missing certain parts.
+<br> It is clear up to which component of the date is represented.
 * **Ease of Use**
-<br> Ease of filling, erasing, and modifying date components
+<br> Ease of filling, erasing, and modifying date components, conversion from `Date` to `TypedDate` and from `TypedDate` to `Date`.
 
 ## Usage
 ### Initialization
@@ -70,11 +70,29 @@ let typedDate1: TypedDate<(Year, Month)> = Date().scope(to: \.month)
 let typedDate2: TypedDate<(Year, Month, Day, Hour)> = Date().scope(to: \.hour)
 ```
 
+### TypedDate to Date conversion
+To convert from TypedDate to Date, use date property.
+```Swift
+typedDate.date // Date
+```
+
 ### Conformance to Standard Protocols
 TypedDate conforms to the Comparable, Equatable, and Codable protocols, which makes it even more powerful and convenient compared to traditional date handling:
 
-* **Comparable and Equatable**
-<br>These protocols allow for easy comparison of TypedDate instances. You can check if one date is equal to, less than, or greater than another date using standard comparison operators (==, <, >, etc.). This is much more intuitive and less error-prone than comparing individual date components.
+#### **Comparable and Equatable**
+These protocols allow for easy comparison of TypedDate instances. You can check if one date is equal to, less than, or greater than another date using standard comparison operators (==, <, >, etc.). This is much more intuitive and less error-prone than comparing individual date components.
+```Swift
+let date1: Date // 2023/11/12
+let date2: Date // 2023/11/11
 
-* **Codable**
-<br>The Codable conformance means that TypedDate instances can be easily encoded to and decoded from various formats such as JSON. This is particularly useful when working with APIs or saving dates to persistent storage.
+// To check the date have the same year
+date1.scope(to: \.year) == date2.scope(to: \.year) // -> true
+
+// To check the date have the same year, month, and day
+date1.scope(to: \.day) == date2.scope(to: \.day) // -> false
+
+// Compare days
+date1.scope(to: \.day) > date2.scope(to: \.day) // -> true
+```
+#### **Codable**
+The Codable conformance means that TypedDate instances can be easily encoded to and decoded from various formats such as JSON. This is particularly useful when working with APIs or saving dates to persistent storage.
