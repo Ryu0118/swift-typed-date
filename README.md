@@ -7,12 +7,10 @@ Key features of TypedDate include:
 <br>Allows developers to specify precisely which date components (year, month, day, etc.) they are working with, leading to a better understanding and less likelihood of inconsistencies.
 * **Flexible Customization**
 <br>Enables the creation of date objects with different levels of detail, from a simple year-only structure to more comprehensive ones including month, day, second, and nanosecond, catering to diverse programming needs.
-* **Enhanced Type Safety**
-<br>Ensures type-safe operations, making it easier to understand and compare date components, thus enhancing code readability and reducing bug risks.
 * **Modifiable Date Components**
-Provides methods for modifying individual components such as year or month, allowing for more nuanced and precise date manipulations.
+<br>Provides methods for modifying individual components such as year or month, allowing for more nuanced and precise date manipulations.
 * **Seamless Conversion**
-Facilitates easy conversion to and from the standard Date object, with customizable defaults for missing components like day or seconds, ensuring adaptability to various scenarios.
+<br>Facilitates easy conversion to and from the standard Date object, with customizable defaults for missing components like day or seconds, ensuring adaptability to various scenarios.
 
 ## Usage
 ### Initialization
