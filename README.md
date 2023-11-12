@@ -23,15 +23,18 @@ To initialize a TypedDate, you can use the following syntax:
 
 ```Swift
 TypedDate(Year(2023), Month(11), Day(12))
+TypedDate(Year(2023), Month(11), Day(12), calendar: Calendar(identifier: .gregorian))
 TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12), Second(1), Nanosecond(10000000))
 ```
 This will create a TypedDate instance representing the date 2023/11/12.
 <br>Date has the following components available: Year, Month, Day, Hour, Minute, Second, and Nanosecond.
 
-<br>To create a TypedDate from a Date, use `Date.scope(to:calendar:)`.
+### Date to TypedDate conversion
+To create a TypedDate from a Date, use `Date.scope(to:calendar:)`.
 ```Swift
 let typedDate1: TypedDate<(Year, Month)> = Date().scope(to: \.month)
 let typedDate2: TypedDate<(Year, Month, Day, Hour)> = Date().scope(to: \.hour)
+let typedDate3: TypedDate<(Year, Month, Day, Hour, Minute)> = Date().scope(to: \.minute, calendar: Calendar(identifier: .gregorian))
 ```
 
 ### TypedDate to Date conversion
@@ -79,6 +82,18 @@ or use `TypedDate.modify(_:calendar:modify:)` method
 var typedDate = TypedDate(Year(2023), Month(11))
 typedDate.modify(\.year) { $0 += 1 }
 // typedDate: 2024/11 
+```
+
+### Access to each date component
+```Swift
+let typedDate = TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12), Second(1), Nanosecond(10000000))
+typedDate.year() // 2023
+typedDate.month(calendar: Calendar(identifier: .gregorian)) // 11
+typedDate.day() // 12
+typedDate.hour(calendar: Calendar(identifier: .gregorian)) // 11
+typedDate.minute() // 12
+typedDate.second(calendar: Calendar(identifier: .gregorian) // 1
+typedDate.nanosecond() // 10000000
 ```
 
 ### Conformance to Standard Protocols
