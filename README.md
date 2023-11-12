@@ -4,7 +4,7 @@ TypedDate is a type-safe wrapper for Swift's Date object, enhancing flexibility 
 Key features of TypedDate include:
 
 * **Explicit Clarity in Date Components**
-<br>Allows developers to specify precisely which date components (year, month, day, etc.) they are working with, leading to a better understanding and less likelihood of errors.
+<br>Allows developers to specify precisely which date components (year, month, day, etc.) they are working with, leading to a better understanding and less likelihood of inconsistencies.
 * **Flexible Customization**
 <br>Enables the creation of date objects with different levels of detail, from a simple year-only structure to more comprehensive ones including month, day, second, and nanosecond, catering to diverse programming needs.
 * **Enhanced Type Safety**
