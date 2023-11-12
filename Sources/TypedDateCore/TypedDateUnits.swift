@@ -16,6 +16,7 @@ package extension TypedDateUnit {
     }
 }
 
+/// Representing a year.
 public struct Year: TypedDateUnit {
     public let value: Int
 
@@ -24,8 +25,8 @@ public struct Year: TypedDateUnit {
     }
 }
 
+/// Representing a month.
 public struct Month: TypedDateUnit {
-
     public let value: Int
 
     public init(_ month: Int) {
@@ -33,6 +34,7 @@ public struct Month: TypedDateUnit {
     }
 }
 
+/// Representing a day.
 public struct Day: TypedDateUnit {
     public let value: Int
 
@@ -41,6 +43,7 @@ public struct Day: TypedDateUnit {
     }
 }
 
+/// Representing a hour.
 public struct Hour: TypedDateUnit {
     public let value: Int
 
@@ -49,6 +52,7 @@ public struct Hour: TypedDateUnit {
     }
 }
 
+/// Representing a month.
 public struct Minute: TypedDateUnit {
     public let value: Int
 
@@ -57,6 +61,7 @@ public struct Minute: TypedDateUnit {
     }
 }
 
+/// Representing a second.
 public struct Second: TypedDateUnit {
     public let value: Int
 
@@ -65,6 +70,7 @@ public struct Second: TypedDateUnit {
     }
 }
 
+/// Representing a nanosecond.
 public struct Nanosecond: TypedDateUnit {
     public let value: Int
 
@@ -73,6 +79,7 @@ public struct Nanosecond: TypedDateUnit {
     }
 }
 
+/// Representing a fractional second.
 public struct FractionalSecond {
     public let value: Double
 
