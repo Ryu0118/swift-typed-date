@@ -3,9 +3,17 @@ name: Test
 on:
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - README.md
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - README.md
   workflow_dispatch:
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:  
