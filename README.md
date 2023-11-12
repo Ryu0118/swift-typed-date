@@ -1,16 +1,16 @@
 # TypedDate
-TypedDate is a wrapper for Swift's Date that enhances date handling at the type level. It enables the construction of custom date structures, ranging from single components like year to more elaborate combinations including year, month, and day, tailored to specific development requirements.
+TypedDate is a wrapper for Swift's Date that enhances date handling at the type level. It enables the construction of custom date structures, ranging from single components like year to combinations of year, month, day, time, etc., tailored to specific development requirements.
 
 Key features of TypedDate include:
 
 * **Explicit Clarity in Date Components**
 <br>Allows developers to specify precisely which date components (year, month, day, etc.) they are working with, leading to a better understanding and less likelihood of inconsistencies.
 * **Flexible Customization**
-<br>Enables the creation of date objects with different levels of detail, from a simple year-only structure to more comprehensive ones including month, day, second, and nanosecond, catering to diverse programming needs.
+<br>Enables the creation of date objects with different levels of detail, from a simple year-only structure to more comprehensive ones including month, day, second, and nanosecond.
 * **Modifiable Date Components**
-<br>Provides methods for modifying individual components such as year or month, allowing for more nuanced and precise date manipulations.
+<br>Provides methods for modifying individual components such as year, month or day.
 * **Seamless Conversion**
-<br>Facilitates easy conversion to and from the standard Date object, with customizable defaults for missing components like day or seconds, ensuring adaptability to various scenarios.
+<br>Enables effortless conversion between 'TypedDate' and Swift's standard Date object, adapting to different scenarios by filling in any missing components as needed.
 
 ## Usage
 ### Initialization
