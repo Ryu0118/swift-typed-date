@@ -48,10 +48,19 @@ The fill method allows you to fill in a specific part of a date. For example:
 ```Swift
 let typedDate = TypedDate(Year(2023), Month(11), Day(12))
 // typedDate: TypedDate<(Year, Month, Day)>
-typedDate.fill(to: \.second, arguments: (Hour(11), Minute(12), Second(10)))
+
+typedDate.fill(
+    to: \.second,
+    arguments: (Hour(11), Minute(12), Second(10))
+)
 // TypedDate<(Year, Month, Day, Hour, Minute, Second)>
-typedDate.fill(to: \.hour, arguments: (Hour(11)), calendar: Calendar(identifier: .gregorian)
-//  TypedDate<(Year, Month, Day, Hour)>
+
+typedDate.fill(
+    to: \.hour,
+    arguments: (Hour(11)),
+    calendar: Calendar(identifier: .gregorian
+)
+// TypedDate<(Year, Month, Day, Hour)>
 ```
 In this example, filledDate will represent the date 2023/11/12 11:12
 
@@ -59,7 +68,7 @@ In this example, filledDate will represent the date 2023/11/12 11:12
 The erase method allows you to erase a specific part of a date. For example:
 
 ```Swift
-let date: TypedDate<(Year, Month, Day, Hour, Minute)> = TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12))
+let date = TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12))
 let erasedDate1: TypedDate<(Year, Month, Day)> = date.erase(to: \.day)
 let erasedDate2: TypedDate<(Year, Month)> = date.erase(to: \.month)
 let erasedDate2: TypedDate<(Year)> = date.erase(to: \.year, calendar: Calendar(identifier: .gregorian)
@@ -70,16 +79,19 @@ In this example, erasedDate will be erased up to date specified in keyPath.
 The modify method allows you to modify a specific part of a date. For example:
 ```Swift
 let typedDate = TypedDate(Year(2023), Month(11), Day(12), Hour(11), Minute(12))
+// typedDate: 2023/11/12 11:12
+
 let modifiedDate = typedDate.modifying(\.year) { $0 += 1 }
-            .modifying(\.month) { $0 -= 2 }
-            .modifying(\.day) { $0 += 3 }
-            .modifying(\.hour) { $0 += 4 }
-            .modifying(\.minute) { $0 += 5 }
+    .modifying(\.month) { $0 -= 2 }
+    .modifying(\.day) { $0 += 3 }
+    .modifying(\.hour) { $0 += 4 }
+    .modifying(\.minute) { $0 += 5 }
 // modifiedDate: 2024/09/15 15:17
 ```
 or use `TypedDate.modify(_:calendar:modify:)` method
 ```Swift
 var typedDate = TypedDate(Year(2023), Month(11))
+
 typedDate.modify(\.year) { $0 += 1 }
 // typedDate: 2024/11 
 ```
