@@ -126,3 +126,8 @@ date1.scope(to: \.day) > date2.scope(to: \.day) // -> true
 ```
 #### **Codable**
 The Codable conformance means that TypedDate instances can be easily encoded to and decoded from various formats such as JSON. This is particularly useful when working with APIs or saving dates to persistent storage.
+
+## Installation
+```Swift
+.package(url: "https://github.com/Ryu0118/swift-typed-date", exact: "0.2.0")
+```
