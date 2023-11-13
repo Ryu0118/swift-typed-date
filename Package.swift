@@ -5,7 +5,7 @@ import PackageDescription
 import CompilerPluginSupport
 
 let package = Package(
-    name: "swift-composable-date",
+    name: "swift-typed-date",
     platforms: [
         .macOS(.v10_15),
         .iOS(.v13),
