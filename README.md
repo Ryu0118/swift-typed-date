@@ -84,7 +84,12 @@ let modifiedDate = typedDate.modifying(\.year) { $0 += 1 }
     .modifying(\.day) { $0 += 3 }
     .modifying(\.hour) { $0 += 4 }
     .modifying(\.minute) { $0 += 5 }
-// modifiedDate: 2024/09/15 15:17
+    .add(\.year, 1)
+    .add(\.month, -2)
+    .add(\.day, 3)
+    .add(\.hour, -2)
+    .add(\.minute, -3)
+// modifiedDate: 2025/07/18 13:14
 ```
 or use `TypedDate.modify(_:calendar:modify:)` method
 ```Swift
