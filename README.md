@@ -141,5 +141,5 @@ The Codable conformance means that TypedDate instances can be easily encoded to 
 
 ## Installation
 ```Swift
-.package(url: "https://github.com/Ryu0118/swift-typed-date", exact: "0.3.0")
+.package(url: "https://github.com/Ryu0118/swift-typed-date", exact: "0.4.0")
 ```
