@@ -40,6 +40,8 @@ To create a TypedDate from a Date, use `Date.scope(to:calendar:)`.
 let typedDate1: TypedDate<(Year, Month)> = Date().scope(to: \.month)
 let typedDate2: TypedDate<(Year, Month, Day, Hour)> = Date().scope(to: \.hour)
 let typedDate3: TypedDate<(Year, Month, Day, Hour, Minute)> = Date().scope(to: \.minute, calendar: Calendar(identifier: .gregorian))
+let typedDate4: TypedDateOfYear = Date().scope(to: \.year)
+let typedDate5: TypedDateOfDay = Date().scope(to: \.day)
 ```
 
 ### TypedDate to Date conversion
@@ -118,8 +120,20 @@ typedDate.second(calendar: Calendar(identifier: .gregorian) // 1
 typedDate.nanosecond() // 10000000
 ```
 
+### Simplifying TypedDate with TypedDateOf〇〇 Aliases
+This library includes the following typealias:
+```Swift
+public typealias TypedDateOfYear = TypedDate<Year>
+public typealias TypedDateOfMonth = TypedDate<(Year, Month)>
+public typealias TypedDateOfDay = TypedDate<(Year, Month, Day)>
+public typealias TypedDateOfHour = TypedDate<(Year, Month, Day, Hour)>
+public typealias TypedDateOfMinute = TypedDate<(Year, Month, Day, Hour, Minute)>
+public typealias TypedDateOfSecond = TypedDate<(Year, Month, Day, Hour, Minute, Second)>
+public typealias TypedDateOfNanosecond = TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)>
+```
+
 ### Conformance to Standard Protocols
-TypedDate conforms to the Comparable, Equatable, and Codable protocols, which makes it even more powerful and convenient compared to traditional date handling:
+TypedDate conforms to the Comparable, Equatable, Hashable, and Codable protocols, which makes it even more powerful and convenient compared to traditional date handling:
 
 #### **Comparable and Equatable**
 These protocols allow for easy comparison of TypedDate instances. You can check if one date is equal to, less than, or greater than another date using standard comparison operators (==, <, >, etc.). This is much more intuitive and less error-prone than comparing individual date components.
