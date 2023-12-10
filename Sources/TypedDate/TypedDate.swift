@@ -4,7 +4,7 @@ import Foundation
 /// This struct provides a type-safe way to handle dates with specific components,
 /// such as year, month, day, etc. The `Components` type parameter defines the date components
 /// associated with this `TypedDate`.
-public struct TypedDate<Components: Sendable>: Sendable {
+public struct TypedDate<Components: Sendable>: TypedDateProtocol, Sendable {
     /// The underlying `Date` object.
     /// This property stores the actual date value represented by the `TypedDate` instance.
     public let date: Date
