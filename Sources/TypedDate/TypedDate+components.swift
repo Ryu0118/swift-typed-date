@@ -195,3 +195,54 @@ public extension TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)>
         calendar.dateComponents([.nanosecond], from: date).nanosecond ?? components.6.value
     }
 }
+
+extension Date {
+    /// Returns the year component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the year component of the date as an integer value.
+    func year(calendar: Calendar) -> Int? {
+        calendar.dateComponents([.year], from: self).year
+    }
+
+    /// Returns the month component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the month component of the date as an integer value.
+    func month(calendar: Calendar) -> Int? {
+        calendar.dateComponents([.month], from: self).month
+    }
+
+    /// Returns the day component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the day component of the date as an integer value.
+    func day(calendar: Calendar ) -> Int? {
+        calendar.dateComponents([.day], from: self).day
+    }
+
+    /// Returns the hour component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the hour component of the date as an integer value.
+    func hour(calendar: Calendar = .current) -> Int? {
+        calendar.dateComponents([.hour], from: self).hour
+    }
+
+    /// Returns the minute component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the minute component of the date as an integer value.
+    func minute(calendar: Calendar = .current) -> Int? {
+        calendar.dateComponents([.minute], from: self).minute
+    }
+
+    /// Returns the second component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the second component of the date as an integer value.
+    func second(calendar: Calendar = .current) -> Int? {
+        calendar.dateComponents([.second], from: self).second
+    }
+
+    /// Returns the nanosecond component of `TypedDate<(Year, Month, Day, Hour, Minute, Second)>`.
+    /// - Parameter calendar: Calendar used for date calculations, defaults to the current calendar.
+    /// - Returns: Returns the nanosecond component of the date as an integer value.
+    func nanosecond(calendar: Calendar = .current) -> Int? {
+        calendar.dateComponents([.nanosecond], from: self).nanosecond
+    }
+}
