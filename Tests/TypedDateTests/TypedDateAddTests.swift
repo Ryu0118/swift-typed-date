@@ -43,4 +43,11 @@ struct TypedDateAddTests {
         let typedDate = testSupport.generateTypedSecondDate().add(\.second, 1)
         #expect(typedDate.second(calendar: calendar) == testSupport.second.add(1))
     }
+
+    @Test
+    func subtractSecond() {
+        let typedDate = testSupport.generateTypedSecondDate()
+        let yesterdayTypedDate = typedDate.add(\.second, Second(-(60 * 60 * 24)))
+        #expect(typedDate.erase(to: \.day) != yesterdayTypedDate.erase(to: \.day))
+    }
 }

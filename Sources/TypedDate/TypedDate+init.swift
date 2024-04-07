@@ -209,20 +209,23 @@ public extension TypedDate {
 
 extension TypedDate {
     init(_ components: Components, calendar: Calendar = .current) {
-        self.components = components
-
         switch components {
         case let components as Year:
             self.date = DateComponents(
                 calendar: calendar,
                 year: components.value
             ).date!
+            self.components = Year(date.year(calendar: calendar) ?? components.value) as! Components
         case let components as (Year, Month):
             self.date = DateComponents(
                 calendar: calendar,
                 year: components.0.value,
                 month: components.1.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value)
+            ) as! Components
         case let components as (Year, Month, Day):
             self.date = DateComponents(
                 calendar: calendar,
@@ -230,6 +233,11 @@ extension TypedDate {
                 month: components.1.value,
                 day: components.2.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value),
+                Day(date.day(calendar: calendar) ?? components.2.value)
+            ) as! Components
         case let components as (Year, Month, Day, Hour):
             self.date = DateComponents(
                 calendar: calendar,
@@ -238,6 +246,12 @@ extension TypedDate {
                 day: components.2.value,
                 hour: components.3.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value),
+                Day(date.day(calendar: calendar) ?? components.2.value),
+                Hour(date.hour(calendar: calendar) ?? components.3.value)
+            ) as! Components
         case let components as (Year, Month, Day, Hour, Minute):
             self.date = DateComponents(
                 calendar: calendar,
@@ -247,6 +261,13 @@ extension TypedDate {
                 hour: components.3.value,
                 minute: components.4.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value),
+                Day(date.day(calendar: calendar) ?? components.2.value),
+                Hour(date.hour(calendar: calendar) ?? components.3.value),
+                Minute(date.minute(calendar: calendar) ?? components.4.value)
+            ) as! Components
         case let components as (Year, Month, Day, Hour, Minute, Second):
             self.date = DateComponents(
                 calendar: calendar,
@@ -257,6 +278,14 @@ extension TypedDate {
                 minute: components.4.value,
                 second: components.5.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value),
+                Day(date.day(calendar: calendar) ?? components.2.value),
+                Hour(date.hour(calendar: calendar) ?? components.3.value),
+                Minute(date.minute(calendar: calendar) ?? components.4.value),
+                Second(date.second(calendar: calendar) ?? components.5.value)
+            ) as! Components
         case let components as (Year, Month, Day, Hour, Minute, Second, Nanosecond):
             self.date = DateComponents(
                 calendar: calendar,
@@ -268,6 +297,15 @@ extension TypedDate {
                 second: components.5.value,
                 nanosecond: components.6.value
             ).date!
+            self.components = (
+                Year(date.year(calendar: calendar) ?? components.0.value),
+                Month(date.month(calendar: calendar) ?? components.1.value),
+                Day(date.day(calendar: calendar) ?? components.2.value),
+                Hour(date.hour(calendar: calendar) ?? components.3.value),
+                Minute(date.minute(calendar: calendar) ?? components.4.value),
+                Second(date.second(calendar: calendar) ?? components.5.value),
+                Nanosecond(date.nanosecond(calendar: calendar) ?? components.6.value)
+            ) as! Components
 
         default:
             fatalError(
