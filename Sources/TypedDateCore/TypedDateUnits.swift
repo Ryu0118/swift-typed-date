@@ -17,7 +17,7 @@ package extension TypedDateUnit {
 }
 
 /// Representing a year.
-public struct Year: TypedDateUnit {
+public struct Year: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ year: Int) {
@@ -26,7 +26,7 @@ public struct Year: TypedDateUnit {
 }
 
 /// Representing a month.
-public struct Month: TypedDateUnit {
+public struct Month: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ month: Int) {
@@ -35,7 +35,7 @@ public struct Month: TypedDateUnit {
 }
 
 /// Representing a day.
-public struct Day: TypedDateUnit {
+public struct Day: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ day: Int) {
@@ -44,7 +44,7 @@ public struct Day: TypedDateUnit {
 }
 
 /// Representing a hour.
-public struct Hour: TypedDateUnit {
+public struct Hour: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ hours: Int) {
@@ -53,7 +53,7 @@ public struct Hour: TypedDateUnit {
 }
 
 /// Representing a month.
-public struct Minute: TypedDateUnit {
+public struct Minute: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ value: Int) {
@@ -62,7 +62,7 @@ public struct Minute: TypedDateUnit {
 }
 
 /// Representing a second.
-public struct Second: TypedDateUnit {
+public struct Second: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ second: Int) {
@@ -71,7 +71,7 @@ public struct Second: TypedDateUnit {
 }
 
 /// Representing a nanosecond.
-public struct Nanosecond: TypedDateUnit {
+public struct Nanosecond: TypedDateUnit, Sendable {
     public let value: Int
 
     public init(_ nanosecond: Int) {
@@ -80,7 +80,7 @@ public struct Nanosecond: TypedDateUnit {
 }
 
 /// Representing a fractional second.
-public struct FractionalSecond {
+public struct FractionalSecond, Sendable {
     public let value: Double
 
     public var seconds: Int {
