@@ -80,7 +80,7 @@ public struct Nanosecond: TypedDateUnit, Sendable {
 }
 
 /// Representing a fractional second.
-public struct FractionalSecond, Sendable {
+public struct FractionalSecond: Sendable {
     public let value: Double
 
     public var seconds: Int {
