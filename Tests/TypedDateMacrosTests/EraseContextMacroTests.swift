@@ -38,7 +38,8 @@ final class EraseContextMacroTests: XCTestCase {
                 minute = (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
                 second = (TypedDate<(Year, Month, Day, Hour, Minute, Second)>.self, (base.0, base.1, base.2, base.3, base.4, base.5))
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -68,7 +69,8 @@ final class EraseContextMacroTests: XCTestCase {
                 hour = (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
                 minute = (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -96,7 +98,8 @@ final class EraseContextMacroTests: XCTestCase {
                 day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
                 hour = (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -121,7 +124,8 @@ final class EraseContextMacroTests: XCTestCase {
                 month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
                 day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -144,7 +148,8 @@ final class EraseContextMacroTests: XCTestCase {
                 year = (TypedDate<Year>.self, base.0)
                 month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -165,7 +170,8 @@ final class EraseContextMacroTests: XCTestCase {
                         self.base = base
                 year = (TypedDate<Year>.self, base.0)
                     }
-                }}
+                }
+            }
             """
         }
     }
