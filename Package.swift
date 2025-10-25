@@ -23,7 +23,6 @@ let package = Package(
     dependencies: [
         // Depend on the Swift 6.0 release of SwiftSyntax
         .package(url: "https://github.com/apple/swift-syntax.git", from: "600.0.0"),
-        .package(url: "https://github.com/apple/swift-testing.git", from: "0.1.0"),
         .package(url: "https://github.com/pointfreeco/swift-macro-testing", from: "0.2.1")
     ],
     targets: [
@@ -67,7 +66,6 @@ let package = Package(
             name: "TypedDateTests",
             dependencies: [
                 "TypedDate",
-                .product(name: "Testing", package: "swift-testing"),
             ]
         )
     ]
