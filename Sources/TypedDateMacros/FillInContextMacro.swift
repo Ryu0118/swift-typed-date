@@ -28,7 +28,7 @@ package struct FillInContextMacro: MemberMacro {
         }
 
         return [
-            try generateFillContext(of: baseComponents).cast(DeclSyntax.self),
+            DeclSyntax(try generateFillContext(of: baseComponents)),
         ]
     }
 

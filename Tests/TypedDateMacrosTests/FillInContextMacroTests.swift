@@ -28,7 +28,8 @@ final class FillInContextMacroTests: XCTestCase {
                         self.base = base
                 nanosecond = { data in (base.0, base.1, base.2, base.3, base.4, base.5, data) }
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -52,7 +53,8 @@ final class FillInContextMacroTests: XCTestCase {
                 second = { data in (base.0, base.1, base.2, base.3, base.4, data) }
                 nanosecond = { data in (base.0, base.1, base.2, base.3, base.4, data.0, data.1) }
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -77,7 +79,8 @@ final class FillInContextMacroTests: XCTestCase {
                 second = { data in (base.0, base.1, base.2, base.3, data.0, data.1) }
                 nanosecond = { data in (base.0, base.1, base.2, base.3, data.0, data.1, data.2) }
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -104,7 +107,8 @@ final class FillInContextMacroTests: XCTestCase {
                 second = { data in (base.0, base.1, base.2, data.0, data.1, data.2) }
                 nanosecond = { data in (base.0, base.1, base.2, data.0, data.1, data.2, data.3) }
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -133,7 +137,8 @@ final class FillInContextMacroTests: XCTestCase {
                 second = { data in (base.0, base.1, data.0, data.1, data.2, data.3) }
                 nanosecond = { data in (base.0, base.1, data.0, data.1, data.2, data.3, data.4) }
                     }
-                }}
+                }
+            }
             """
         }
     }
@@ -165,7 +170,8 @@ final class FillInContextMacroTests: XCTestCase {
                 second = { data in (base, data.0, data.1, data.2, data.3, data.4) }
                 nanosecond = { data in (base, data.0, data.1, data.2, data.3, data.4, data.5) }
                     }
-                }}
+                }
+            }
             """
         }
     }

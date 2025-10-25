@@ -28,7 +28,7 @@ package struct ModifyContextMacro: MemberMacro {
         }
 
         return [
-            try generateModifyContext(of: baseComponents).cast(DeclSyntax.self),
+            DeclSyntax(try generateModifyContext(of: baseComponents)),
         ]
     }
 

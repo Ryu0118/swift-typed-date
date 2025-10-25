@@ -28,7 +28,7 @@ package struct EraseContextMacro: MemberMacro {
         }
 
         return [
-            try generateEraseContext(of: baseComponents).cast(DeclSyntax.self),
+            DeclSyntax(try generateEraseContext(of: baseComponents)),
         ]
     }
 
