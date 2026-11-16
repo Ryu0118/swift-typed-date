@@ -153,21 +153,29 @@ public extension TypedDate {
 }
 
 extension TypedDate {
+    /// Dispatches on the metatype rather than casting the value: casting a tuple with `as` walks the runtime
+    /// type metadata, and `modify`, `fill` and `erase` all come through here.
     init(_ components: Components, calendar: Calendar = .current) {
-        switch components {
-        case let c as Year:
-            (date, self.components) = Self.erased(TypedDateNormalizer.make(c, calendar: calendar))
-        case let c as (Year, Month):
+        switch Components.self {
+        case is Year.Type:
+            (date, self.components) = Self.erased(TypedDateNormalizer.make(Self.cast(components), calendar: calendar))
+        case is (Year, Month).Type:
+            let c: (Year, Month) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, calendar: calendar))
-        case let c as (Year, Month, Day):
+        case is (Year, Month, Day).Type:
+            let c: (Year, Month, Day) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, c.2, calendar: calendar))
-        case let c as (Year, Month, Day, Hour):
+        case is (Year, Month, Day, Hour).Type:
+            let c: (Year, Month, Day, Hour) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, c.2, c.3, calendar: calendar))
-        case let c as (Year, Month, Day, Hour, Minute):
+        case is (Year, Month, Day, Hour, Minute).Type:
+            let c: (Year, Month, Day, Hour, Minute) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, c.2, c.3, c.4, calendar: calendar))
-        case let c as (Year, Month, Day, Hour, Minute, Second):
+        case is (Year, Month, Day, Hour, Minute, Second).Type:
+            let c: (Year, Month, Day, Hour, Minute, Second) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, c.2, c.3, c.4, c.5, calendar: calendar))
-        case let c as (Year, Month, Day, Hour, Minute, Second, Nanosecond):
+        case is (Year, Month, Day, Hour, Minute, Second, Nanosecond).Type:
+            let c: (Year, Month, Day, Hour, Minute, Second, Nanosecond) = Self.cast(components)
             (date, self.components) = Self.erased(TypedDateNormalizer.make(c.0, c.1, c.2, c.3, c.4, c.5, c.6, calendar: calendar))
         default:
             fatalError(
@@ -178,8 +186,13 @@ extension TypedDate {
         }
     }
 
+    /// Only called after the `switch` above has matched `Components` against `T`, so both are the same type.
+    private static func cast<T>(_ components: Components) -> T {
+        unsafeBitCast(components, to: T.self)
+    }
+
     private static func erased<T>(_ made: (Date, T)) -> (Date, Components) {
-        (made.0, made.1 as! Components)
+        (made.0, unsafeBitCast(made.1, to: Components.self))
     }
 }
 
@@ -187,11 +200,24 @@ extension TypedDate {
 /// is stored in its normalized form. Equal dates then behave the same in `modify`, `fill` and `erase`.
 enum TypedDateNormalizer {
     static func make(_ year: Year, calendar: Calendar) -> (Date, Year) {
+        if isGregorian(calendar) {
+            return (calendar.date(from: DateComponents(year: year.value))!, year)
+        }
         let (date, dc) = build(DateComponents(year: year.value), units: [.year], calendar: calendar)
         return (date, Year(dc.year ?? year.value))
     }
 
+    /// In the Gregorian calendar, a month in 1...12 and a day in 1...28 never overflow, and the year, month and day
+    /// read back unchanged even where midnight is skipped by a time zone change. Reading them back would only cost
+    /// another calendar call. Hours and smaller units are always read back, because a skipped hour moves them.
+    private static func isGregorian(_ calendar: Calendar) -> Bool {
+        calendar.identifier == .gregorian || calendar.identifier == .iso8601
+    }
+
     static func make(_ year: Year, _ month: Month, calendar: Calendar) -> (Date, (Year, Month)) {
+        if isGregorian(calendar), (1...12).contains(month.value) {
+            return (calendar.date(from: DateComponents(year: year.value, month: month.value))!, (year, month))
+        }
         let (date, dc) = build(
             DateComponents(year: year.value, month: month.value),
             units: [.year, .month],
@@ -201,6 +227,10 @@ enum TypedDateNormalizer {
     }
 
     static func make(_ year: Year, _ month: Month, _ day: Day, calendar: Calendar) -> (Date, (Year, Month, Day)) {
+        if isGregorian(calendar), (1...12).contains(month.value), (1...28).contains(day.value) {
+            let date = calendar.date(from: DateComponents(year: year.value, month: month.value, day: day.value))!
+            return (date, (year, month, day))
+        }
         let (date, dc) = build(
             DateComponents(year: year.value, month: month.value, day: day.value),
             units: [.year, .month, .day],

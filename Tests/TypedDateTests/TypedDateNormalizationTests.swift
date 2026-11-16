@@ -82,6 +82,28 @@ struct TypedDateNormalizationTests {
     }
 
     @Test
+    func dayIsKeptWhereMidnightIsSkipped() {
+        // Clocks in São Paulo jumped from 00:00 to 01:00 on 2018-11-04, so that day has no midnight
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/Sao_Paulo")!
+        let date = TypedDate(Year(2018), Month(11), Day(4), calendar: calendar)
+
+        #expect(calendar.dateComponents([.year, .month, .day], from: date.date) == DateComponents(year: 2018, month: 11, day: 4))
+        #expect(date.components.2.value == 4)
+        #expect(date.add(\.day, 1, calendar: calendar).day(calendar: calendar) == 5)
+    }
+
+    @Test
+    func nonGregorianCalendarIsNormalized() {
+        // The Hebrew calendar has 13 months in a leap year, so month 13 overflows only in common years
+        let calendar = Calendar(identifier: .hebrew)
+        let date = TypedDate(Year(5784), Month(1), Day(31), calendar: calendar)
+
+        #expect(date.components.2.value == calendar.component(.day, from: date.date))
+        #expect(date.components.1.value == calendar.component(.month, from: date.date))
+    }
+
+    @Test
     func modifyingCarriesAcrossUnits() {
         let date = TypedDate(Year(2023), Month(12), Day(31), Hour(23), Minute(59), Second(59), calendar: calendar)
         let next = date.add(\.second, 1, calendar: calendar)
