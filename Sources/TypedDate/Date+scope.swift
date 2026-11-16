@@ -24,17 +24,21 @@ extension Date {
     }
 }
 
-public final class _TypedDateContext {
+/// The units a `Date` can be scoped to. A struct with computed properties, so scoping allocates nothing
+/// and builds only the requested `TypedDate`.
+public struct _TypedDateContext {
     private let date: Date
     private let calendar: Calendar
 
-    public lazy var year: TypedDate<(Year)>? = .init(date: date, calendar: calendar)
-    public lazy var month: TypedDate<(Year, Month)>? = .init(date: date, calendar: calendar)
-    public lazy var day: TypedDate<(Year, Month, Day)>? = .init(date: date, calendar: calendar)
-    public lazy var hour: TypedDate<(Year, Month, Day, Hour)>? = .init(date: date, calendar: calendar)
-    public lazy var minute: TypedDate<(Year, Month, Day, Hour, Minute)>? = .init(date: date, calendar: calendar)
-    public lazy var second: TypedDate<(Year, Month, Day, Hour, Minute, Second)>? = .init(date: date, calendar: calendar)
-    public lazy var nanosecond: TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)>? = .init(date: date, calendar: calendar)
+    public var year: TypedDate<(Year)>? { .init(date: date, calendar: calendar) }
+    public var month: TypedDate<(Year, Month)>? { .init(date: date, calendar: calendar) }
+    public var day: TypedDate<(Year, Month, Day)>? { .init(date: date, calendar: calendar) }
+    public var hour: TypedDate<(Year, Month, Day, Hour)>? { .init(date: date, calendar: calendar) }
+    public var minute: TypedDate<(Year, Month, Day, Hour, Minute)>? { .init(date: date, calendar: calendar) }
+    public var second: TypedDate<(Year, Month, Day, Hour, Minute, Second)>? { .init(date: date, calendar: calendar) }
+    public var nanosecond: TypedDate<(Year, Month, Day, Hour, Minute, Second, Nanosecond)>? {
+        .init(date: date, calendar: calendar)
+    }
 
     public init(date: Date, calendar: Calendar) {
         self.date = date
