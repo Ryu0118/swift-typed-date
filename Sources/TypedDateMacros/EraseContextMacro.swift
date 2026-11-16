@@ -32,6 +32,7 @@ package struct EraseContextMacro: MemberMacro {
         ]
     }
 
+    /// Each erased type is a computed property, so a call to `erase` builds only the tuple it uses.
     private static func generateEraseContext(of baseComponents: [String]) throws -> StructDeclSyntax {
         StructDeclSyntax(
             name: .identifier("_\(baseComponents.last ?? "_")EraseContext"),
@@ -44,29 +45,24 @@ package struct EraseContextMacro: MemberMacro {
                     for components in erasedComponents {
                         let type = components.returnType
                         let typeName = components.last?.lowercased() ?? ""
+                        let arguments = components.indices.map { "base.\($0)" }.returnType
                         MemberBlockItemSyntax(
-                            decl: DeclSyntax("public let \(raw: typeName): (TypedDate<\(raw: type)>.Type, \(raw: type))")
+                            decl: DeclSyntax(
+                                """
+                                public var \(raw: typeName): (TypedDate<\(raw: type)>.Type, \(raw: type)) {
+                                    (TypedDate<\(raw: type)>.self, \(raw: arguments))
+                                }
+                                """
+                            )
                         )
                     }
                     try MemberBlockItemSyntax(
                         decl: InitializerDeclSyntax("init(base: Components)") {
-                            """
-                            self.base = base
-                            \(raw: erasedComponents.map { generateInitializerCodeBlockList(of: $0) }.joined(separator: "\n"))
-                            """
+                            "self.base = base"
                         }
                     )
                 }
             }
         )
-    }
-
-    private static func generateInitializerCodeBlockList(of erasedComponents: [String]) -> String {
-        let type = erasedComponents.returnType
-        let arguments = erasedComponents
-            .enumerated()
-            .map { i, _ in "base.\(i)" }
-            .returnType
-        return "\(erasedComponents.last!.lowercased()) = (TypedDate<\(type)>.self, \(arguments))"
     }
 }

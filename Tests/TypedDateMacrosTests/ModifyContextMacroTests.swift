@@ -23,22 +23,43 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _NanosecondModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
-                    public let day: (Day, (Day) -> Components)
-                    public let hour: (Hour, (Hour) -> Components)
-                    public let minute: (Minute, (Minute) -> Components)
-                    public let second: (Second, (Second) -> Components)
-                    public let nanosecond: (Nanosecond, (Nanosecond) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1, base.2, base.3, base.4, base.5, base.6)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month, base.2, base.3, base.4, base.5, base.6)
+                            })
+                    }
+                    public var day: (Day, (Day) -> Components) {
+                        (base.2, { [base] day in
+                                (base.0, base.1, day, base.3, base.4, base.5, base.6)
+                            })
+                    }
+                    public var hour: (Hour, (Hour) -> Components) {
+                        (base.3, { [base] hour in
+                                (base.0, base.1, base.2, hour, base.4, base.5, base.6)
+                            })
+                    }
+                    public var minute: (Minute, (Minute) -> Components) {
+                        (base.4, { [base] minute in
+                                (base.0, base.1, base.2, base.3, minute, base.5, base.6)
+                            })
+                    }
+                    public var second: (Second, (Second) -> Components) {
+                        (base.5, { [base] second in
+                                (base.0, base.1, base.2, base.3, base.4, second, base.6)
+                            })
+                    }
+                    public var nanosecond: (Nanosecond, (Nanosecond) -> Components) {
+                        (base.6, { [base] nanosecond in
+                                (base.0, base.1, base.2, base.3, base.4, base.5, nanosecond)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1, base.2, base.3, base.4, base.5, base.6) })
-                self.month = (base.1, { month in (base.0, month, base.2, base.3, base.4, base.5, base.6) })
-                self.day = (base.2, { day in (base.0, base.1, day, base.3, base.4, base.5, base.6) })
-                self.hour = (base.3, { hour in (base.0, base.1, base.2, hour, base.4, base.5, base.6) })
-                self.minute = (base.4, { minute in (base.0, base.1, base.2, base.3, minute, base.5, base.6) })
-                self.second = (base.5, { second in (base.0, base.1, base.2, base.3, base.4, second, base.6) })
-                self.nanosecond = (base.6, { nanosecond in (base.0, base.1, base.2, base.3, base.4, base.5, nanosecond) })
                     }
                 }
             }
@@ -58,20 +79,38 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _SecondModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
-                    public let day: (Day, (Day) -> Components)
-                    public let hour: (Hour, (Hour) -> Components)
-                    public let minute: (Minute, (Minute) -> Components)
-                    public let second: (Second, (Second) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1, base.2, base.3, base.4, base.5)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month, base.2, base.3, base.4, base.5)
+                            })
+                    }
+                    public var day: (Day, (Day) -> Components) {
+                        (base.2, { [base] day in
+                                (base.0, base.1, day, base.3, base.4, base.5)
+                            })
+                    }
+                    public var hour: (Hour, (Hour) -> Components) {
+                        (base.3, { [base] hour in
+                                (base.0, base.1, base.2, hour, base.4, base.5)
+                            })
+                    }
+                    public var minute: (Minute, (Minute) -> Components) {
+                        (base.4, { [base] minute in
+                                (base.0, base.1, base.2, base.3, minute, base.5)
+                            })
+                    }
+                    public var second: (Second, (Second) -> Components) {
+                        (base.5, { [base] second in
+                                (base.0, base.1, base.2, base.3, base.4, second)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1, base.2, base.3, base.4, base.5) })
-                self.month = (base.1, { month in (base.0, month, base.2, base.3, base.4, base.5) })
-                self.day = (base.2, { day in (base.0, base.1, day, base.3, base.4, base.5) })
-                self.hour = (base.3, { hour in (base.0, base.1, base.2, hour, base.4, base.5) })
-                self.minute = (base.4, { minute in (base.0, base.1, base.2, base.3, minute, base.5) })
-                self.second = (base.5, { second in (base.0, base.1, base.2, base.3, base.4, second) })
                     }
                 }
             }
@@ -91,18 +130,33 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _MinuteModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
-                    public let day: (Day, (Day) -> Components)
-                    public let hour: (Hour, (Hour) -> Components)
-                    public let minute: (Minute, (Minute) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1, base.2, base.3, base.4)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month, base.2, base.3, base.4)
+                            })
+                    }
+                    public var day: (Day, (Day) -> Components) {
+                        (base.2, { [base] day in
+                                (base.0, base.1, day, base.3, base.4)
+                            })
+                    }
+                    public var hour: (Hour, (Hour) -> Components) {
+                        (base.3, { [base] hour in
+                                (base.0, base.1, base.2, hour, base.4)
+                            })
+                    }
+                    public var minute: (Minute, (Minute) -> Components) {
+                        (base.4, { [base] minute in
+                                (base.0, base.1, base.2, base.3, minute)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1, base.2, base.3, base.4) })
-                self.month = (base.1, { month in (base.0, month, base.2, base.3, base.4) })
-                self.day = (base.2, { day in (base.0, base.1, day, base.3, base.4) })
-                self.hour = (base.3, { hour in (base.0, base.1, base.2, hour, base.4) })
-                self.minute = (base.4, { minute in (base.0, base.1, base.2, base.3, minute) })
                     }
                 }
             }
@@ -122,16 +176,28 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _HourModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
-                    public let day: (Day, (Day) -> Components)
-                    public let hour: (Hour, (Hour) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1, base.2, base.3)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month, base.2, base.3)
+                            })
+                    }
+                    public var day: (Day, (Day) -> Components) {
+                        (base.2, { [base] day in
+                                (base.0, base.1, day, base.3)
+                            })
+                    }
+                    public var hour: (Hour, (Hour) -> Components) {
+                        (base.3, { [base] hour in
+                                (base.0, base.1, base.2, hour)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1, base.2, base.3) })
-                self.month = (base.1, { month in (base.0, month, base.2, base.3) })
-                self.day = (base.2, { day in (base.0, base.1, day, base.3) })
-                self.hour = (base.3, { hour in (base.0, base.1, base.2, hour) })
                     }
                 }
             }
@@ -151,14 +217,23 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _DayModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
-                    public let day: (Day, (Day) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1, base.2)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month, base.2)
+                            })
+                    }
+                    public var day: (Day, (Day) -> Components) {
+                        (base.2, { [base] day in
+                                (base.0, base.1, day)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1, base.2) })
-                self.month = (base.1, { month in (base.0, month, base.2) })
-                self.day = (base.2, { day in (base.0, base.1, day) })
                     }
                 }
             }
@@ -178,12 +253,18 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _MonthModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
-                    public let month: (Month, (Month) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base.0, { [base] year in
+                                (year, base.1)
+                            })
+                    }
+                    public var month: (Month, (Month) -> Components) {
+                        (base.1, { [base] month in
+                                (base.0, month)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base.0, { year in (year, base.1) })
-                self.month = (base.1, { month in (base.0, month) })
                     }
                 }
             }
@@ -203,10 +284,13 @@ final class ModifyContextMacroTests: XCTestCase {
 
                 struct _YearModifyContext {
                     private let base: Components
-                    public let year: (Year, (Year) -> Components)
+                    public var year: (Year, (Year) -> Components) {
+                        (base, { [base] year in
+                                (year)
+                            })
+                    }
                     init(base: Components) {
                         self.base = base
-                self.year = (base, { year in (year) })
                     }
                 }
             }

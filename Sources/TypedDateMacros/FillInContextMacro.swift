@@ -32,6 +32,7 @@ package struct FillInContextMacro: MemberMacro {
         ]
     }
 
+    /// Each target is a computed property, so a call to `fill` builds only the closure it uses.
     private static func generateFillContext(of baseComponents: [String]) throws -> StructDeclSyntax {
         StructDeclSyntax(
             name: .identifier("_\(baseComponents.last ?? "")FillInContext"),
@@ -50,10 +51,7 @@ package struct FillInContextMacro: MemberMacro {
 
                     try MemberBlockItemSyntax(
                         decl: InitializerDeclSyntax("init(base: Components)") {
-                            """
-                            self.base = base
-                            \(raw: convertComponents.compactMap { generateInitializerCodeBlockList(baseComponents: baseComponents, to: $0) }.joined(separator: "\n"))
-                            """
+                            "self.base = base"
                         }
                     )
                 }
@@ -70,21 +68,14 @@ package struct FillInContextMacro: MemberMacro {
         return convertComponents
     }
 
-    private static func generateInitializerCodeBlockList(
+    private static func generateClosure(
         baseComponents: [String],
         to convertComponents: [String]
-    ) -> String? {
-        let bases: String = baseComponents.count == 1 ? "base" : baseComponents.enumerated().map { i, _ in "base.\(i)" }.joined(separator: ", ")
+    ) -> String {
+        let bases: String = baseComponents.count == 1 ? "base" : baseComponents.indices.map { "base.\($0)" }.joined(separator: ", ")
         let diff = convertComponents.count - baseComponents.count
-
-        guard diff >= 1 else  {
-            return nil
-        }
-
         let passedArguments: String = diff == 1 ? "data" : (0..<diff).map { "data.\($0)" }.joined(separator: ", ")
-        return """
-        \(convertComponents.last!.lowercased()) = { data in (\(bases), \(passedArguments)) }
-        """
+        return "{ [base] data in (\(bases), \(passedArguments)) }"
     }
 
     private static func generateUnitProperty(
@@ -92,12 +83,14 @@ package struct FillInContextMacro: MemberMacro {
         to convertComponents: [String]
     ) throws -> VariableDeclSyntax? {
         let types = generateNecessaryArgumentTypes(baseComponents: baseComponents, to: convertComponents)
-        guard types.count >= 1 else {
+        guard types.count >= 1, convertComponents.count > baseComponents.count else {
             return nil
         }
         return try VariableDeclSyntax(
             """
-            public let \(raw: convertComponents.last!.lowercased()): \(raw: types.closureParameter) -> \(raw: convertComponents.returnType)
+            public var \(raw: convertComponents.last!.lowercased()): \(raw: types.closureParameter) -> \(raw: convertComponents.returnType) {
+                \(raw: generateClosure(baseComponents: baseComponents, to: convertComponents))
+            }
             """
         )
     }
