@@ -83,14 +83,26 @@ public struct Nanosecond: TypedDateUnit, Sendable {
 public struct FractionalSecond: Sendable {
     public let value: Double
 
+    /// The whole seconds, rounded down, so `-1.5` is `-2` seconds plus `500_000_000` nanoseconds.
     public var seconds: Int {
-        Int(value)
+        split.seconds
     }
+
+    /// The fraction in nanoseconds, rounded to the nearest one. A fraction that rounds up to a whole second
+    /// is carried into `seconds`.
     public var nanoseconds: Int {
-        Int((value - floor(value)) * 1_000_000_000)
+        split.nanoseconds
     }
 
     public init(_ value: Double) {
         self.value = value
+    }
+
+    private var split: (seconds: Int, nanoseconds: Int) {
+        let whole = value.rounded(.down)
+        let nanoseconds = Int(((value - whole) * 1_000_000_000).rounded())
+        return nanoseconds >= 1_000_000_000
+            ? (Int(whole) + 1, nanoseconds - 1_000_000_000)
+            : (Int(whole), nanoseconds)
     }
 }
