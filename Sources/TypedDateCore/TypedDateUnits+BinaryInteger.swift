@@ -126,3 +126,23 @@ public extension TypedDateUnit {
         Self(self.value + value)
     }
 }
+
+// The standard library's defaults for these call each other (`Strideable`'s `<` uses `distance(to:)`,
+// and `BinaryInteger`'s `distance(to:)` and `description` use `<`), so a unit relying on them overflows the stack.
+public extension TypedDateUnit {
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.value < rhs.value
+    }
+
+    func distance(to other: Self) -> Int {
+        other.value - value
+    }
+
+    func advanced(by n: Int) -> Self {
+        Self(value + n)
+    }
+
+    var description: String {
+        value.description
+    }
+}
