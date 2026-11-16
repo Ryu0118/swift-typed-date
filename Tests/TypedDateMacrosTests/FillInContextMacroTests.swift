@@ -22,11 +22,14 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<(Year, Month, Day, Hour, Minute, Second)> {
 
                 struct _SecondFillInContext {
-                    public let nanosecond: (Nanosecond) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var nanosecond: (Nanosecond) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, base.4, base.5, data)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                nanosecond = { data in (base.0, base.1, base.2, base.3, base.4, base.5, data) }
                     }
                 }
             }
@@ -45,13 +48,19 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<(Year, Month, Day, Hour, Minute)> {
 
                 struct _MinuteFillInContext {
-                    public let second: (Second) -> (Year, Month, Day, Hour, Minute, Second)
-                    public let nanosecond: ((Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var second: (Second) -> (Year, Month, Day, Hour, Minute, Second) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, base.4, data)
+                        }
+                    }
+                    public var nanosecond: ((Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, base.4, data.0, data.1)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                second = { data in (base.0, base.1, base.2, base.3, base.4, data) }
-                nanosecond = { data in (base.0, base.1, base.2, base.3, base.4, data.0, data.1) }
                     }
                 }
             }
@@ -69,15 +78,24 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<(Year, Month, Day, Hour)> {
 
                 struct _HourFillInContext {
-                    public let minute: (Minute) -> (Year, Month, Day, Hour, Minute)
-                    public let second: ((Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second)
-                    public let nanosecond: ((Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var minute: (Minute) -> (Year, Month, Day, Hour, Minute) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, data)
+                        }
+                    }
+                    public var second: ((Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, data.0, data.1)
+                        }
+                    }
+                    public var nanosecond: ((Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base.0, base.1, base.2, base.3, data.0, data.1, data.2)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                minute = { data in (base.0, base.1, base.2, base.3, data) }
-                second = { data in (base.0, base.1, base.2, base.3, data.0, data.1) }
-                nanosecond = { data in (base.0, base.1, base.2, base.3, data.0, data.1, data.2) }
                     }
                 }
             }
@@ -95,17 +113,29 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<(Year, Month, Day)> {
 
                 struct _DayFillInContext {
-                    public let hour: (Hour) -> (Year, Month, Day, Hour)
-                    public let minute: ((Hour, Minute)) -> (Year, Month, Day, Hour, Minute)
-                    public let second: ((Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second)
-                    public let nanosecond: ((Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var hour: (Hour) -> (Year, Month, Day, Hour) {
+                        { [base] data in
+                            (base.0, base.1, base.2, data)
+                        }
+                    }
+                    public var minute: ((Hour, Minute)) -> (Year, Month, Day, Hour, Minute) {
+                        { [base] data in
+                            (base.0, base.1, base.2, data.0, data.1)
+                        }
+                    }
+                    public var second: ((Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second) {
+                        { [base] data in
+                            (base.0, base.1, base.2, data.0, data.1, data.2)
+                        }
+                    }
+                    public var nanosecond: ((Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base.0, base.1, base.2, data.0, data.1, data.2, data.3)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                hour = { data in (base.0, base.1, base.2, data) }
-                minute = { data in (base.0, base.1, base.2, data.0, data.1) }
-                second = { data in (base.0, base.1, base.2, data.0, data.1, data.2) }
-                nanosecond = { data in (base.0, base.1, base.2, data.0, data.1, data.2, data.3) }
                     }
                 }
             }
@@ -123,19 +153,34 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<(Year, Month)> {
 
                 struct _MonthFillInContext {
-                    public let day: (Day) -> (Year, Month, Day)
-                    public let hour: ((Day, Hour)) -> (Year, Month, Day, Hour)
-                    public let minute: ((Day, Hour, Minute)) -> (Year, Month, Day, Hour, Minute)
-                    public let second: ((Day, Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second)
-                    public let nanosecond: ((Day, Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var day: (Day) -> (Year, Month, Day) {
+                        { [base] data in
+                            (base.0, base.1, data)
+                        }
+                    }
+                    public var hour: ((Day, Hour)) -> (Year, Month, Day, Hour) {
+                        { [base] data in
+                            (base.0, base.1, data.0, data.1)
+                        }
+                    }
+                    public var minute: ((Day, Hour, Minute)) -> (Year, Month, Day, Hour, Minute) {
+                        { [base] data in
+                            (base.0, base.1, data.0, data.1, data.2)
+                        }
+                    }
+                    public var second: ((Day, Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second) {
+                        { [base] data in
+                            (base.0, base.1, data.0, data.1, data.2, data.3)
+                        }
+                    }
+                    public var nanosecond: ((Day, Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base.0, base.1, data.0, data.1, data.2, data.3, data.4)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                day = { data in (base.0, base.1, data) }
-                hour = { data in (base.0, base.1, data.0, data.1) }
-                minute = { data in (base.0, base.1, data.0, data.1, data.2) }
-                second = { data in (base.0, base.1, data.0, data.1, data.2, data.3) }
-                nanosecond = { data in (base.0, base.1, data.0, data.1, data.2, data.3, data.4) }
                     }
                 }
             }
@@ -154,21 +199,39 @@ final class FillInContextMacroTests: XCTestCase {
             public extension TypedDate<Year> {
 
                 struct _YearFillInContext {
-                    public let month: (Month) -> (Year, Month)
-                    public let day: ((Month, Day)) -> (Year, Month, Day)
-                    public let hour: ((Month, Day, Hour)) -> (Year, Month, Day, Hour)
-                    public let minute: ((Month, Day, Hour, Minute)) -> (Year, Month, Day, Hour, Minute)
-                    public let second: ((Month, Day, Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second)
-                    public let nanosecond: ((Month, Day, Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond)
+                    public var month: (Month) -> (Year, Month) {
+                        { [base] data in
+                            (base, data)
+                        }
+                    }
+                    public var day: ((Month, Day)) -> (Year, Month, Day) {
+                        { [base] data in
+                            (base, data.0, data.1)
+                        }
+                    }
+                    public var hour: ((Month, Day, Hour)) -> (Year, Month, Day, Hour) {
+                        { [base] data in
+                            (base, data.0, data.1, data.2)
+                        }
+                    }
+                    public var minute: ((Month, Day, Hour, Minute)) -> (Year, Month, Day, Hour, Minute) {
+                        { [base] data in
+                            (base, data.0, data.1, data.2, data.3)
+                        }
+                    }
+                    public var second: ((Month, Day, Hour, Minute, Second)) -> (Year, Month, Day, Hour, Minute, Second) {
+                        { [base] data in
+                            (base, data.0, data.1, data.2, data.3, data.4)
+                        }
+                    }
+                    public var nanosecond: ((Month, Day, Hour, Minute, Second, Nanosecond)) -> (Year, Month, Day, Hour, Minute, Second, Nanosecond) {
+                        { [base] data in
+                            (base, data.0, data.1, data.2, data.3, data.4, data.5)
+                        }
+                    }
                     private let base: Components
                     init(base: Components) {
                         self.base = base
-                month = { data in (base, data) }
-                day = { data in (base, data.0, data.1) }
-                hour = { data in (base, data.0, data.1, data.2) }
-                minute = { data in (base, data.0, data.1, data.2, data.3) }
-                second = { data in (base, data.0, data.1, data.2, data.3, data.4) }
-                nanosecond = { data in (base, data.0, data.1, data.2, data.3, data.4, data.5) }
                     }
                 }
             }

@@ -32,6 +32,7 @@ package struct ModifyContextMacro: MemberMacro {
         ]
     }
 
+    /// Each unit is a computed property, so a call to `modify` builds only the closure for the unit it uses.
     private static func generateModifyContext(of baseComponents: [String]) throws -> StructDeclSyntax {
         StructDeclSyntax(
             name: .identifier("_\(baseComponents.last ?? "_")ModifyContext"),
@@ -40,18 +41,21 @@ package struct ModifyContextMacro: MemberMacro {
                     try MemberBlockItemSyntax(
                         decl: VariableDeclSyntax("private let base: Components")
                     )
-                    for component in baseComponents {
+                    for (rowIndex, component) in baseComponents.enumerated() {
                         let typeName = component.lowercased()
                         MemberBlockItemSyntax(
-                            decl: DeclSyntax("public let \(raw: typeName): (\(raw: component), (\(raw: component)) -> Components)")
+                            decl: DeclSyntax(
+                                """
+                                public var \(raw: typeName): (\(raw: component), (\(raw: component)) -> Components) {
+                                    \(raw: generateGetterBody(of: baseComponents, at: rowIndex))
+                                }
+                                """
+                            )
                         )
                     }
                     try MemberBlockItemSyntax(
                         decl: InitializerDeclSyntax("init(base: Components)") {
-                            """
-                            self.base = base
-                            \(raw: generateInitializerCodeBlockList(of: baseComponents))
-                            """
+                            "self.base = base"
                         }
                     )
                 }
@@ -59,29 +63,15 @@ package struct ModifyContextMacro: MemberMacro {
         )
     }
 
-    private static func generateInitializerCodeBlockList(
-        of baseComponents: [String]
-    ) -> String {
-        var codeBlock = [String]()
-        for (rowIndex, component) in baseComponents.enumerated() {
-            let typeName = component.lowercased()
-            let argument = baseComponents.count == 1 ? "base" : "base.\(rowIndex)"
-            let closureReturnValue = baseComponents
-                .enumerated()
-                .map { closureIndex, closureComponent in
-                    if rowIndex == closureIndex {
-                        typeName
-                    } else {
-                        "base.\(closureIndex)"
-                    }
-                }
-                .joined(separator: ", ")
-            codeBlock.append(
-                """
-                self.\(typeName) = (\(argument), { \(typeName) in (\(closureReturnValue)) })
-                """
-            )
-        }
-        return codeBlock.joined(separator: "\n")
+    private static func generateGetterBody(of baseComponents: [String], at rowIndex: Int) -> String {
+        let typeName = baseComponents[rowIndex].lowercased()
+        let argument = baseComponents.count == 1 ? "base" : "base.\(rowIndex)"
+        let closureReturnValue = baseComponents
+            .indices
+            .map { closureIndex in
+                rowIndex == closureIndex ? typeName : "base.\(closureIndex)"
+            }
+            .joined(separator: ", ")
+        return "(\(argument), { [base] \(typeName) in (\(closureReturnValue)) })"
     }
 }

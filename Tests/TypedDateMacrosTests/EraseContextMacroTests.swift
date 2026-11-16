@@ -23,20 +23,26 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _NanosecondEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
-                    public let month: (TypedDate<(Year, Month)>.Type, (Year, Month))
-                    public let day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day))
-                    public let hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour))
-                    public let minute: (TypedDate<(Year, Month, Day, Hour, Minute)>.Type, (Year, Month, Day, Hour, Minute))
-                    public let second: (TypedDate<(Year, Month, Day, Hour, Minute, Second)>.Type, (Year, Month, Day, Hour, Minute, Second))
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
+                    public var month: (TypedDate<(Year, Month)>.Type, (Year, Month)) {
+                        (TypedDate<(Year, Month)>.self, (base.0, base.1))
+                    }
+                    public var day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day)) {
+                        (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
+                    }
+                    public var hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour)) {
+                        (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
+                    }
+                    public var minute: (TypedDate<(Year, Month, Day, Hour, Minute)>.Type, (Year, Month, Day, Hour, Minute)) {
+                        (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
+                    }
+                    public var second: (TypedDate<(Year, Month, Day, Hour, Minute, Second)>.Type, (Year, Month, Day, Hour, Minute, Second)) {
+                        (TypedDate<(Year, Month, Day, Hour, Minute, Second)>.self, (base.0, base.1, base.2, base.3, base.4, base.5))
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
-                month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
-                day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
-                hour = (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
-                minute = (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
-                second = (TypedDate<(Year, Month, Day, Hour, Minute, Second)>.self, (base.0, base.1, base.2, base.3, base.4, base.5))
                     }
                 }
             }
@@ -56,18 +62,23 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _SecondEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
-                    public let month: (TypedDate<(Year, Month)>.Type, (Year, Month))
-                    public let day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day))
-                    public let hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour))
-                    public let minute: (TypedDate<(Year, Month, Day, Hour, Minute)>.Type, (Year, Month, Day, Hour, Minute))
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
+                    public var month: (TypedDate<(Year, Month)>.Type, (Year, Month)) {
+                        (TypedDate<(Year, Month)>.self, (base.0, base.1))
+                    }
+                    public var day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day)) {
+                        (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
+                    }
+                    public var hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour)) {
+                        (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
+                    }
+                    public var minute: (TypedDate<(Year, Month, Day, Hour, Minute)>.Type, (Year, Month, Day, Hour, Minute)) {
+                        (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
-                month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
-                day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
-                hour = (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
-                minute = (TypedDate<(Year, Month, Day, Hour, Minute)>.self, (base.0, base.1, base.2, base.3, base.4))
                     }
                 }
             }
@@ -87,16 +98,20 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _MinuteEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
-                    public let month: (TypedDate<(Year, Month)>.Type, (Year, Month))
-                    public let day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day))
-                    public let hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour))
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
+                    public var month: (TypedDate<(Year, Month)>.Type, (Year, Month)) {
+                        (TypedDate<(Year, Month)>.self, (base.0, base.1))
+                    }
+                    public var day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day)) {
+                        (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
+                    }
+                    public var hour: (TypedDate<(Year, Month, Day, Hour)>.Type, (Year, Month, Day, Hour)) {
+                        (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
-                month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
-                day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
-                hour = (TypedDate<(Year, Month, Day, Hour)>.self, (base.0, base.1, base.2, base.3))
                     }
                 }
             }
@@ -115,14 +130,17 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _HourEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
-                    public let month: (TypedDate<(Year, Month)>.Type, (Year, Month))
-                    public let day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day))
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
+                    public var month: (TypedDate<(Year, Month)>.Type, (Year, Month)) {
+                        (TypedDate<(Year, Month)>.self, (base.0, base.1))
+                    }
+                    public var day: (TypedDate<(Year, Month, Day)>.Type, (Year, Month, Day)) {
+                        (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
-                month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
-                day = (TypedDate<(Year, Month, Day)>.self, (base.0, base.1, base.2))
                     }
                 }
             }
@@ -141,12 +159,14 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _DayEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
-                    public let month: (TypedDate<(Year, Month)>.Type, (Year, Month))
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
+                    public var month: (TypedDate<(Year, Month)>.Type, (Year, Month)) {
+                        (TypedDate<(Year, Month)>.self, (base.0, base.1))
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
-                month = (TypedDate<(Year, Month)>.self, (base.0, base.1))
                     }
                 }
             }
@@ -165,10 +185,11 @@ final class EraseContextMacroTests: XCTestCase {
 
                 struct _MonthEraseContext {
                     private let base: Components
-                    public let year: (TypedDate<Year>.Type, Year)
+                    public var year: (TypedDate<Year>.Type, Year) {
+                        (TypedDate<Year>.self, base.0)
+                    }
                     init(base: Components) {
                         self.base = base
-                year = (TypedDate<Year>.self, base.0)
                     }
                 }
             }
